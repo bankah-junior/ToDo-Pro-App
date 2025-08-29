@@ -27,10 +27,18 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/new-list': (context) => const NewListScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
-        '/project': (context) => const ProjectScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/project') {
+          final args = settings.arguments as String; // ✅ get projectTitle
+          return MaterialPageRoute(
+            builder: (context) => ProjectScreen(projectTitle: args),
+          );
+        }
+        return null;
       },
       onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (context) => NotFoundScreen());
+        return MaterialPageRoute(builder: (context) => const NotFoundScreen());
       },
     );
   }
